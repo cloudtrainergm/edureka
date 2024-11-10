@@ -1,0 +1,9 @@
+{
+	"name": "edurekademoadfgm",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "876ac765-1027-4fc5-9522-4e3075d941ac",
+		"tenantId": "4a32e6de-cc4c-427d-bdb6-af6da6eead97"
+	}
+}
