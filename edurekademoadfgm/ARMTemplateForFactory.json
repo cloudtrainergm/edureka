@@ -43,7 +43,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "edurekacpactivity_1",
+						"name": "Copy data1",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -56,74 +56,28 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "@concat('Select * from ', pipeline().parameters.TableName)",
+									"type": "Expression"
 								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "prod_cat_code",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "prod_cat_code",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "prod_cat",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "prod_cat",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "prod_sub_cat_code",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "prod_sub_cat_code",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "prod_subcat",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "prod_subcat",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -133,14 +87,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "datasetADLS",
+								"referenceName": "datasetSQLADV",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "datasetSQLADV",
+								"referenceName": "ProductCategoriesDataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -150,11 +104,16 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/datasetADLS')]",
-				"[concat(variables('factoryId'), '/datasets/datasetSQLADV')]"
+				"[concat(variables('factoryId'), '/datasets/datasetSQLADV')]",
+				"[concat(variables('factoryId'), '/datasets/ProductCategoriesDataset')]"
 			]
 		},
 		{
@@ -392,9 +351,7 @@
 							{
 								"referenceName": "datasetSQLADV",
 								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "SalesLT.Customer"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
@@ -435,7 +392,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "Customer.csv",
+						"fileName": "DynamicData.csv",
 						"folderPath": "Marketing",
 						"fileSystem": "generaldata"
 					},
@@ -521,12 +478,6 @@
 				"linkedServiceName": {
 					"referenceName": "dsSQLDatabaseGM",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"TableName": {
-						"type": "string",
-						"defaultValue": "SalesLT.Customer"
-					}
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
