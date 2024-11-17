@@ -45,6 +45,8 @@
 					{
 						"name": "Copy data1",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -99,6 +101,38 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "demolookup",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"dataset": {
+								"referenceName": "datasetADLS",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
 					}
 				],
 				"policy": {
@@ -113,7 +147,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/datasetSQLADV')]",
-				"[concat(variables('factoryId'), '/datasets/ProductCategoriesDataset')]"
+				"[concat(variables('factoryId'), '/datasets/ProductCategoriesDataset')]",
+				"[concat(variables('factoryId'), '/datasets/datasetADLS')]"
 			]
 		},
 		{
@@ -626,6 +661,16 @@
 						}
 					}
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SelfHostedIR')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		}
