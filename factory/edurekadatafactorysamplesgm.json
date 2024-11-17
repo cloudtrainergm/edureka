@@ -1,0 +1,9 @@
+{
+	"name": "edurekadatafactorysamplesgm",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a522399d-975d-4b80-9889-a0bd7b396f7d",
+		"tenantId": "4a32e6de-cc4c-427d-bdb6-af6da6eead97"
+	}
+}
