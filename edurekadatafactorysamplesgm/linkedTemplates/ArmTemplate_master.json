@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "edurekadatafactorysamplesgm"
+		},
+		"destADLSGEN2LS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'destADLSGEN2LS'"
+		},
+		"srcBLOBStorageLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'srcBLOBStorageLS'"
+		},
+		"srcADLService_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'srcADLService'"
+		},
+		"destADLSGEN2LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"srcADLService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "edurekadatafactorysamplesgm_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"destADLSGEN2LS_accountKey": {
+						"value": "[parameters('destADLSGEN2LS_accountKey')]"
+					},
+					"srcBLOBStorageLS_connectionString": {
+						"value": "[parameters('srcBLOBStorageLS_connectionString')]"
+					},
+					"srcADLService_accountKey": {
+						"value": "[parameters('srcADLService_accountKey')]"
+					},
+					"destADLSGEN2LS_properties_typeProperties_url": {
+						"value": "[parameters('destADLSGEN2LS_properties_typeProperties_url')]"
+					},
+					"srcADLService_properties_typeProperties_url": {
+						"value": "[parameters('srcADLService_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

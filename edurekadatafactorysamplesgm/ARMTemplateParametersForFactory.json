@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "edurekadatafactorysamplesgm"
+		},
+		"destADLSGEN2LS_accountKey": {
+			"value": ""
+		},
+		"srcBLOBStorageLS_connectionString": {
+			"value": ""
+		},
+		"srcADLService_accountKey": {
+			"value": ""
+		},
+		"destADLSGEN2LS_properties_typeProperties_url": {
+			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"srcADLService_properties_typeProperties_url": {
+			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		}
+	}
+}
