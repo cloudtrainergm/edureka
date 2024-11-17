@@ -1,0 +1,35 @@
+{
+	"name": "datasetSQLADV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dsSQLDatabaseGM",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "prod_cat_code",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "prod_cat",
+				"type": "varchar"
+			},
+			{
+				"name": "prod_sub_cat_code",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "prod_subcat",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ProductCategoriesSubcat"
+		}
+	}
+}
