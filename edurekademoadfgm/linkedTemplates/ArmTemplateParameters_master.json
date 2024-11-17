@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "edurekademoadfgm"
 		},
+		"AzureBlobStorageLinkedService_connectionString": {
+			"value": ""
+		},
 		"srcADLSGen2_accountKey": {
 			"value": ""
 		},
@@ -13,6 +16,9 @@
 		},
 		"dsSQLDatabaseGM_properties_typeProperties_connectionString_secretName": {
 			"value": "edurekasqlsecret"
+		},
+		"lsBlobStorageOnlyGM_properties_typeProperties_connectionString_secretName": {
+			"value": "edurekablobstorageonly"
 		},
 		"srcADLSGen2_properties_typeProperties_url": {
 			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
