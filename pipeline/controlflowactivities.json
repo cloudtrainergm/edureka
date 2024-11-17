@@ -29,7 +29,8 @@
 					"dataset": {
 						"referenceName": "srcProdCatSubcat",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
