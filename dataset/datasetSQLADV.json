@@ -5,6 +5,12 @@
 			"referenceName": "dsSQLDatabaseGM",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"TableName": {
+				"type": "string",
+				"defaultValue": "SalesLT.Customer"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -26,10 +32,6 @@
 				"name": "prod_subcat",
 				"type": "varchar"
 			}
-		],
-		"typeProperties": {
-			"schema": "dbo",
-			"table": "ProductCategoriesSubcat"
-		}
+		]
 	}
 }
