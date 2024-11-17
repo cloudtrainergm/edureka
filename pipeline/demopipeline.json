@@ -1,0 +1,11 @@
+{
+	"name": "demopipeline",
+	"properties": {
+		"parameters": {
+			"Table": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
