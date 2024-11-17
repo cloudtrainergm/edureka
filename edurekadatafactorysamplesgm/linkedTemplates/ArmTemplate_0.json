@@ -359,7 +359,8 @@
 								"referenceName": "srcProdCatSubcat",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					}
 				],
