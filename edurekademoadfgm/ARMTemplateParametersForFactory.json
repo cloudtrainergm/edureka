@@ -5,8 +5,17 @@
 		"factoryName": {
 			"value": "edurekademoadfgm"
 		},
-		"srcBLOBStorageLS_connectionString": {
+		"srcADLSGen2_accountKey": {
 			"value": ""
+		},
+		"azKeyVaultGM_properties_typeProperties_baseUrl": {
+			"value": "https://edurekakeyvaultgm.vault.azure.net/"
+		},
+		"dsSQLDatabaseGM_properties_typeProperties_connectionString_secretName": {
+			"value": "edurekasqlsecret"
+		},
+		"srcADLSGen2_properties_typeProperties_url": {
+			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
 		}
 	}
 }
