@@ -8,10 +8,13 @@
 		"destADLSGEN2LS_accountKey": {
 			"value": ""
 		},
+		"srcADLService_accountKey": {
+			"value": ""
+		},
 		"srcBLOBStorageLS_connectionString": {
 			"value": ""
 		},
-		"srcADLService_accountKey": {
+		"srcSQLDB_password": {
 			"value": ""
 		},
 		"destADLSGEN2LS_properties_typeProperties_url": {
@@ -19,6 +22,15 @@
 		},
 		"srcADLService_properties_typeProperties_url": {
 			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"srcSQLDB_properties_typeProperties_server": {
+			"value": "edurekamainserver.database.windows.net"
+		},
+		"srcSQLDB_properties_typeProperties_database": {
+			"value": "AdventureworksLT"
+		},
+		"srcSQLDB_properties_typeProperties_userName": {
+			"value": "sqladmin"
 		}
 	}
 }

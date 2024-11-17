@@ -11,13 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'destADLSGEN2LS'"
 		},
+		"srcADLService_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'srcADLService'"
+		},
 		"srcBLOBStorageLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'srcBLOBStorageLS'"
 		},
-		"srcADLService_accountKey": {
+		"srcSQLDB_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'srcADLService'"
+			"metadata": "Secure string for 'password' of 'srcSQLDB'"
 		},
 		"destADLSGEN2LS_properties_typeProperties_url": {
 			"type": "string",
@@ -26,6 +30,18 @@
 		"srcADLService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"srcSQLDB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "edurekamainserver.database.windows.net"
+		},
+		"srcSQLDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureworksLT"
+		},
+		"srcSQLDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
 		},
 		"containerUri": {
 			"type": "string",
@@ -57,17 +73,29 @@
 					"destADLSGEN2LS_accountKey": {
 						"value": "[parameters('destADLSGEN2LS_accountKey')]"
 					},
+					"srcADLService_accountKey": {
+						"value": "[parameters('srcADLService_accountKey')]"
+					},
 					"srcBLOBStorageLS_connectionString": {
 						"value": "[parameters('srcBLOBStorageLS_connectionString')]"
 					},
-					"srcADLService_accountKey": {
-						"value": "[parameters('srcADLService_accountKey')]"
+					"srcSQLDB_password": {
+						"value": "[parameters('srcSQLDB_password')]"
 					},
 					"destADLSGEN2LS_properties_typeProperties_url": {
 						"value": "[parameters('destADLSGEN2LS_properties_typeProperties_url')]"
 					},
 					"srcADLService_properties_typeProperties_url": {
 						"value": "[parameters('srcADLService_properties_typeProperties_url')]"
+					},
+					"srcSQLDB_properties_typeProperties_server": {
+						"value": "[parameters('srcSQLDB_properties_typeProperties_server')]"
+					},
+					"srcSQLDB_properties_typeProperties_database": {
+						"value": "[parameters('srcSQLDB_properties_typeProperties_database')]"
+					},
+					"srcSQLDB_properties_typeProperties_userName": {
+						"value": "[parameters('srcSQLDB_properties_typeProperties_userName')]"
 					}
 				}
 			},

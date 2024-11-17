@@ -11,13 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'destADLSGEN2LS'"
 		},
+		"srcADLService_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'srcADLService'"
+		},
 		"srcBLOBStorageLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'srcBLOBStorageLS'"
 		},
-		"srcADLService_accountKey": {
+		"srcSQLDB_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'srcADLService'"
+			"metadata": "Secure string for 'password' of 'srcSQLDB'"
 		},
 		"destADLSGEN2LS_properties_typeProperties_url": {
 			"type": "string",
@@ -26,6 +30,18 @@
 		"srcADLService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"srcSQLDB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "edurekamainserver.database.windows.net"
+		},
+		"srcSQLDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureworksLT"
+		},
+		"srcSQLDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
 		}
 	},
 	"variables": {
@@ -50,6 +66,23 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/srcADLService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('srcADLService_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('srcADLService_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/srcBLOBStorageLS')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -63,17 +96,22 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/srcADLService')]",
+			"name": "[concat(parameters('factoryName'), '/srcSQLDB')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureBlobFS",
+				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"url": "[parameters('srcADLService_properties_typeProperties_url')]",
-					"accountKey": {
+					"server": "[parameters('srcSQLDB_properties_typeProperties_server')]",
+					"database": "[parameters('srcSQLDB_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('srcSQLDB_properties_typeProperties_userName')]",
+					"password": {
 						"type": "SecureString",
-						"value": "[parameters('srcADLService_accountKey')]"
+						"value": "[parameters('srcSQLDB_password')]"
 					}
 				}
 			},
@@ -105,6 +143,27 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/destADLSGEN2LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dsAzSqlTbl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "srcSQLDB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "ProdCatSubcat"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/srcSQLDB')]"
 			]
 		},
 		{
@@ -220,7 +279,7 @@
 							"source": {
 								"type": "DelimitedTextSource",
 								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
+									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
@@ -229,15 +288,11 @@
 								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".csv"
-								}
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -245,50 +300,50 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "eid",
+											"name": "prod_cat_code",
 											"type": "String",
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "eid",
+											"name": "prod_cat_code",
 											"type": "String",
-											"physicalType": "String"
+											"physicalType": "nvarchar"
 										}
 									},
 									{
 										"source": {
-											"name": "ename",
+											"name": "prod_cat",
 											"type": "String",
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "ename",
+											"name": "prod_cat",
 											"type": "String",
-											"physicalType": "String"
+											"physicalType": "nvarchar"
 										}
 									},
 									{
 										"source": {
-											"name": "eage",
+											"name": "prod_sub_cat_code",
 											"type": "String",
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "eage",
+											"name": "prod_sub_cat_code",
 											"type": "String",
-											"physicalType": "String"
+											"physicalType": "nvarchar"
 										}
 									},
 									{
 										"source": {
-											"name": "esalary",
+											"name": "prod_subcat",
 											"type": "String",
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "esalary",
+											"name": "prod_subcat",
 											"type": "String",
-											"physicalType": "String"
+											"physicalType": "nvarchar"
 										}
 									}
 								],
@@ -301,14 +356,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "dsCSVSource",
+								"referenceName": "srcProdCatSubcat",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "destSinkADLS",
+								"referenceName": "dsAzSqlTbl",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -321,8 +376,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/dsCSVSource')]",
-				"[concat(variables('factoryId'), '/datasets/destSinkADLS')]"
+				"[concat(variables('factoryId'), '/datasets/srcProdCatSubcat')]",
+				"[concat(variables('factoryId'), '/datasets/dsAzSqlTbl')]"
 			]
 		},
 		{
@@ -345,18 +400,13 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "Select * from SalesLT.Customer",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "srcProdCatSubcat",
+								"referenceName": "dsAzSqlTbl",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -370,7 +420,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/srcProdCatSubcat')]"
+				"[concat(variables('factoryId'), '/datasets/dsAzSqlTbl')]"
 			]
 		},
 		{
