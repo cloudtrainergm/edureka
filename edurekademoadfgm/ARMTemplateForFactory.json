@@ -256,7 +256,9 @@
 							{
 								"referenceName": "datasetSQLADV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"TableName": "SalesLT.Product"
+								}
 							}
 						],
 						"outputs": [
