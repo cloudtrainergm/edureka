@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select * from SalesLT.Customer",
+						"sqlReaderQuery": "Select * from SalesLT.ProdCatSubcat",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
