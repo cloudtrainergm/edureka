@@ -230,10 +230,7 @@
 				"inputs": [
 					{
 						"referenceName": "datasetSQLADV",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": "SalesLT.Customer"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
