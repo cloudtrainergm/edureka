@@ -18,7 +18,7 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
+							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
@@ -27,15 +27,11 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -43,50 +39,50 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "eid",
+									"name": "prod_cat_code",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "eid",
+									"name": "prod_cat_code",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "ename",
+									"name": "prod_cat",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "ename",
+									"name": "prod_cat",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "eage",
+									"name": "prod_sub_cat_code",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "eage",
+									"name": "prod_sub_cat_code",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "esalary",
+									"name": "prod_subcat",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "esalary",
+									"name": "prod_subcat",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "nvarchar"
 								}
 							}
 						],
@@ -99,13 +95,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "dsCSVSource",
+						"referenceName": "srcProdCatSubcat",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "destSinkADLS",
+						"referenceName": "dsAzSqlTbl",
 						"type": "DatasetReference"
 					}
 				]
