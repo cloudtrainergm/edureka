@@ -11,6 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "Product_Category_Subcategory.csv",
+				"folderPath": "DataSource",
 				"fileSystem": "generaldata"
 			},
 			"columnDelimiter": ",",
