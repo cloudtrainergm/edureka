@@ -33,78 +33,8 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "prod_cat_code",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "prod_cat_code",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "prod_cat",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "prod_cat",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "prod_sub_cat_code",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "prod_sub_cat_code",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "prod_subcat",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "prod_subcat",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "srcProdCatSubcat",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "dsAzSqlTbl",
-						"type": "DatasetReference"
-					}
-				]
+					"enableStaging": false
+				}
 			}
 		],
 		"annotations": []
