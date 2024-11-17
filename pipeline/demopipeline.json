@@ -94,7 +94,10 @@
 				"inputs": [
 					{
 						"referenceName": "datasetSQLADV",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SalesLT.Product"
+						}
 					}
 				],
 				"outputs": [
