@@ -11,6 +11,9 @@
 		"srcADLSGen2_accountKey": {
 			"value": ""
 		},
+		"srcSQLServer_connectionString": {
+			"value": ""
+		},
 		"azKeyVaultGM_properties_typeProperties_baseUrl": {
 			"value": "https://edurekakeyvaultgm.vault.azure.net/"
 		},
