@@ -74,16 +74,18 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "@concat('Select * from ', pipeline().parameters.TableName)",
-							"type": "Expression"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"dataset": {
-						"referenceName": "datasetSQLADV",
+						"referenceName": "datasetADLS",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
