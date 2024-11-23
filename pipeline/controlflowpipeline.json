@@ -175,7 +175,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT TOP (100) [SalesOrderID]\n      ,[SalesOrderDetailID]\n      ,[OrderQty]\n      ,[ProductID]\n      ,[SpecialOfferID]\n      ,[UnitPrice]\n      ,[UnitPriceDiscount]\n      ,[LineTotal]\n      ,[rowguid]\n      ,[ModifiedDate]\n  FROM [AdventureWorks2019].[Sales].[SalesOrderDetailCopy1]",
+						"sqlReaderQuery": {
+							"value": "@pipeline().parameters.Query",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -345,6 +348,9 @@
 		],
 		"parameters": {
 			"TableName": {
+				"type": "string"
+			},
+			"Query": {
 				"type": "string"
 			}
 		},
