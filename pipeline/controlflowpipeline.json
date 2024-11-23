@@ -63,9 +63,14 @@
 			{
 				"name": "demolookup",
 				"type": "Lookup",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -76,16 +81,20 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "@concat('Select * from ' , pipeline().parameters.TableName)",
-							"type": "Expression"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "generaldata/Marketing",
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
 						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"dataset": {
-						"referenceName": "datasetSQLADV",
+						"referenceName": "datasetADLS",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -114,19 +123,28 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "datasetSQLADV",
+						"referenceName": "datasetADLS",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"columnCount",
-						"exists",
-						"structure"
-					]
+						"itemName",
+						"itemType"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
 				}
 			},
 			{
 				"name": "demoExecutePipeline",
 				"type": "ExecutePipeline",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "demoMetadata",
