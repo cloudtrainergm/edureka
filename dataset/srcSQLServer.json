@@ -1,0 +1,16 @@
+{
+	"name": "srcSQLServer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "srcSQLServer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "SalesOrderDetailCopy1"
+		}
+	}
+}
