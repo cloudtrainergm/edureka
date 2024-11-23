@@ -76,7 +76,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@concat('select * from', pipeline().parameters.TableName)",
+							"value": "@concat('Select * from ' , pipeline().parameters.TableName)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -110,22 +110,37 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "datasetADLS",
+						"referenceName": "datasetSQLADV",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"columnCount",
-						"itemName",
-						"itemType",
-						"size"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
+						"exists",
+						"structure"
+					]
+				}
+			},
+			{
+				"name": "demoExecutePipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "demoMetadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "demopipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
