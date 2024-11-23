@@ -84,9 +84,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": "generaldata/Marketing",
-							"wildcardFileName": "*.csv",
+							"fileListPath": "generaldata/Marketing/",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
