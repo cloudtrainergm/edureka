@@ -84,7 +84,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"fileListPath": "generaldata/Marketing/*.csv",
+							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
