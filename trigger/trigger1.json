@@ -1,0 +1,24 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "moreActivities",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/generaldata/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d2a80567-b762-4850-b572-ae66daf2fffc/resourceGroups/edurekarg/providers/Microsoft.Storage/storageAccounts/edurekadlsdemogm",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
