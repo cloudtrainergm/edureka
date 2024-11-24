@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "employee.csv",
-				"folderPath": "Marketing",
+				"fileName": "product.csv",
+				"folderPath": "DataSource",
 				"fileSystem": "generaldata"
 			},
 			"columnDelimiter": ",",
