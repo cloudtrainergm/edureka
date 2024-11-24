@@ -34,6 +34,10 @@
 		"srcADLSGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d2a80567-b762-4850-b572-ae66daf2fffc/resourceGroups/edurekarg/providers/Microsoft.Storage/storageAccounts/edurekadlsdemogm"
 		}
 	},
 	"variables": {
@@ -2215,6 +2219,36 @@
 							]
 						}
 					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/moreActivities')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "moreActivities",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/generaldata/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
 			"dependsOn": [

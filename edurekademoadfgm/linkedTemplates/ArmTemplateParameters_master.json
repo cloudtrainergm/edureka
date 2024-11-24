@@ -26,6 +26,9 @@
 		"srcADLSGen2_properties_typeProperties_url": {
 			"value": "https://edurekadlsdemogm.dfs.core.windows.net/"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/d2a80567-b762-4850-b572-ae66daf2fffc/resourceGroups/edurekarg/providers/Microsoft.Storage/storageAccounts/edurekadlsdemogm"
+		},
 		"containerUri": {
 			"value": ""
 		},

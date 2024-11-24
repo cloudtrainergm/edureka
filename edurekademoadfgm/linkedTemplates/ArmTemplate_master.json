@@ -35,6 +35,10 @@
 			"type": "string",
 			"defaultValue": "https://edurekadlsdemogm.dfs.core.windows.net/"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d2a80567-b762-4850-b572-ae66daf2fffc/resourceGroups/edurekarg/providers/Microsoft.Storage/storageAccounts/edurekadlsdemogm"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -100,6 +104,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
 					}
 				}
 			},
