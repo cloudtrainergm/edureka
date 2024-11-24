@@ -59,6 +59,8 @@
 			{
 				"name": "demolookup",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Copy data1",
@@ -91,8 +93,6 @@
 			{
 				"name": "demoMetadata",
 				"type": "GetMetadata",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "demolookup",
@@ -111,13 +111,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "datasetADLS",
+						"referenceName": "dsMultiADLS",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"columnCount",
-						"itemName",
-						"itemType"
+						"childItems"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -344,6 +342,8 @@
 			{
 				"name": "dataFilter",
 				"type": "Filter",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "demolookup",
@@ -362,6 +362,44 @@
 						"value": "@equals(item().prod_sub_cat_code, 4)",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "demoForEach",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "demoMetadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('demoMetadata').output.childItems",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data2",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"enableStaging": false
+							}
+						}
+					]
 				}
 			}
 		],
