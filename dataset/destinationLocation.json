@@ -1,0 +1,23 @@
+{
+	"name": "destinationLocation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "srcADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sinkfile",
+				"fileSystem": "generaldata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
