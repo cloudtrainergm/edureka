@@ -32,6 +32,29 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "filterData",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "lkpData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lkpData').output.value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@equals(item().prod_sub_cat_code, 4)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"annotations": []
