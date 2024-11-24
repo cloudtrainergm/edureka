@@ -17,10 +17,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "demoDataFlow",
-						"type": "DataFlowReference"
-					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
