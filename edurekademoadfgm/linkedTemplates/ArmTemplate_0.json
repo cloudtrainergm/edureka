@@ -185,6 +185,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "Product_Category_Subcategory.csv",
 						"folderPath": "DataSource",
 						"fileSystem": "generaldata"
 					},
@@ -743,8 +744,6 @@
 					{
 						"name": "demolookup",
 						"type": "Lookup",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Copy data1",
@@ -763,12 +762,18 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
 							},
 							"dataset": {
-								"referenceName": "datasetSQLADV",
+								"referenceName": "datasetADLS",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -858,7 +863,10 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderQuery": "SELECT TOP (100) [SalesOrderID]\n      ,[SalesOrderDetailID]\n      ,[OrderQty]\n      ,[ProductID]\n      ,[SpecialOfferID]\n      ,[UnitPrice]\n      ,[UnitPriceDiscount]\n      ,[LineTotal]\n      ,[rowguid]\n      ,[ModifiedDate]\n  FROM [AdventureWorks2019].[Sales].[SalesOrderDetailCopy1]",
+								"sqlReaderQuery": {
+									"value": "@pipeline().parameters.Query",
+									"type": "Expression"
+								},
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -1033,6 +1041,9 @@
 				},
 				"parameters": {
 					"TableName": {
+						"type": "string"
+					},
+					"Query": {
 						"type": "string"
 					}
 				},
