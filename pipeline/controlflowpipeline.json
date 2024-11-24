@@ -81,18 +81,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "datasetADLS",
+						"referenceName": "datasetSQLADV",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -167,6 +161,8 @@
 			{
 				"name": "onpremtocoud",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -348,6 +344,19 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "dataFilter",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "demolookup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"parameters": {
