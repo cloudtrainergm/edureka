@@ -363,8 +363,8 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "Product"
+					"schema": "dbo",
+					"table": "ProductCategoriesSubcat"
 				}
 			},
 			"dependsOn": [
@@ -698,10 +698,6 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "@concat('Select * from ', pipeline().parameters.TableName)",
-									"type": "Expression"
-								},
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -762,18 +758,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "datasetADLS",
+								"referenceName": "datasetSQLADV",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -851,6 +841,8 @@
 					{
 						"name": "onpremtocoud",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -1034,6 +1026,29 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "dataFilter",
+						"type": "Filter",
+						"dependsOn": [
+							{
+								"activity": "demolookup",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('demolookup').output.value",
+								"type": "Expression"
+							},
+							"condition": {
+								"value": "@equals(item().prod_sub_cat_code, 4)",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
