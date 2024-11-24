@@ -1,0 +1,41 @@
+{
+	"name": "prodDestSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dsSQLDatabaseGM",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "pid",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "pname",
+				"type": "varchar"
+			},
+			{
+				"name": "orderqty",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "unitprice",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "totalprice",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "DemoProduct"
+		}
+	}
+}
