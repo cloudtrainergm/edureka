@@ -1,0 +1,41 @@
+{
+	"name": "empDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "srcADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "employee.csv",
+				"folderPath": "Marketing",
+				"fileSystem": "generaldata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "eid",
+				"type": "String"
+			},
+			{
+				"name": "ename",
+				"type": "String"
+			},
+			{
+				"name": "eage",
+				"type": "String"
+			},
+			{
+				"name": "esalary",
+				"type": "String"
+			}
+		]
+	}
+}
