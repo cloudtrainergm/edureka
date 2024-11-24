@@ -344,8 +344,6 @@
 			{
 				"name": "dataFilter",
 				"type": "Filter",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "demolookup",
@@ -354,7 +352,17 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('demolookup').output.value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@equals(item().prod_sub_cat_code, 4)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
